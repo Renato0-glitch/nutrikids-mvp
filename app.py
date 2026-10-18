@@ -276,7 +276,7 @@ with tab_install:
     
     # IMPORTANTE: Reemplaza este enlace con tu URL real de Streamlit Cloud (Ej: https://nutrikids-chile.streamlit.app)
     # Por defecto usa tu localhost para pruebas, cámbialo antes de la presentación.
-    app_url = "https://tu-enlace-de-streamlit-aqui.streamlit.app" 
+    app_url = "https://nutrikids-chile.streamlit.app/" 
     
     # Generador público y gratuito de QR por API (no requiere librerías extra)
     qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data={app_url}"
