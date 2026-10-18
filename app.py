@@ -1,12 +1,32 @@
-import streamlit as st
-import time
-from models import ChildProfile, ProductData
-from off_service import fetch_product_by_barcode, CATEGORY_LABELS
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import List, Optional
+from models import ChildProfile, ProductData, EvaluationResponse, HistoryRecord
+from off_service import fetch_product_by_barcode
 from rules_engine import evaluate_product
 from database import (
     init_db, get_all_profiles, save_profile, delete_profile,
     get_all_products_from_db, search_products_in_db, save_product_to_db,
-    add_scan_history, get_scan_history, clear_scan_history
+    add_scan_history, get_scan_history
+)
+
+init_db()
+
+app = FastAPI(
+    title="NutriKids API v2.0",
+    description="Backend completo para evaluación nutricional pediátrica.",
+    version="2.0.0"
+)
+
+# --- NUEVO: CONFIGURACIÓN CORS ---
+# Esto permite que la aplicación móvil se comunique con esta API sin ser bloqueada
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # En producción estricta se pone el dominio exacto, para el MVP dejamos "*"
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # 1. CONFIGURACIÓN DE PÁGINA: Modo Móvil (Menú lateral colapsado por defecto)
