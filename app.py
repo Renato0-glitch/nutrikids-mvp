@@ -269,22 +269,21 @@ with tab_history:
 # MÓDULO 5: DESCARGAR APP / PRESENTACIÓN (CÓDIGO QR)
 # ==============================================================================
 with tab_install:
-    st.subheader("📲 Instalar en tu Celular")
-    st.markdown("Escanea este código QR con la cámara de tu teléfono para abrir la aplicación. Luego:")
-    st.markdown("- **En Android (Chrome):** Toca los 3 puntitos (⋮) y selecciona **'Agregar a la pantalla principal'**.")
-    st.markdown("- **En iPhone (Safari):** Toca el botón Compartir y selecciona **'Agregar a inicio'**.")
+    st.subheader("📲 Descargar APK para Android")
+    st.markdown("Escanea este código QR para descargar e instalar el archivo de la aplicación en tu celular Android:")
     
-    # IMPORTANTE: Reemplaza este enlace con tu URL real de Streamlit Cloud (Ej: https://nutrikids-chile.streamlit.app)
-    # Por defecto usa tu localhost para pruebas, cámbialo antes de la presentación.
-    app_url = "https://nutrikids-chile.streamlit.app/" 
+    # 1. Pega aquí tu enlace de descarga directa de Google Drive
+    apk_direct_download_url = "https://drive.google.com/uc?export=download&id=1tU93O-lk7STq8uI6PVwpdYbv7_eXDgrV"
     
-    # Generador público y gratuito de QR por API (no requiere librerías extra)
-    qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data={app_url}"
+    # 2. Generador del código QR apuntando directamente al instalador
+    qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={apk_direct_download_url}"
     
-    col_qr1, col_qr2, col_qr3 = st.columns([1,3,1])
+    col_qr1, col_qr2, col_qr3 = st.columns([1, 4, 1])
     with col_qr2:
-        st.image(qr_url, caption="Escanea para abrir la App", use_container_width=True)
-        st.caption(f"URL Directa: {app_url}")
+        st.image(qr_url, caption="Escanea para descargar NutriKids.apk", use_container_width=True)
+        st.markdown(f"[👉 O toca aquí para descargar directamente]({apk_direct_download_url})")
+
+    st.info("ℹ️ Al instalar, Android preguntará si deseas instalar aplicaciones de orígenes desconocidos; presiona **Permitir** o **Instalar de todas formas**.")
 
 # ==============================================================================
 # PANEL INFERIOR: RESULTADO DETALLADO DEL PRODUCTO ACTIVO
