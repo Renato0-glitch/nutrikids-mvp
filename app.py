@@ -268,17 +268,14 @@ with tab_history:
 # ==============================================================================
 # MÓDULO 5: DESCARGAR APP / PRESENTACIÓN (CÓDIGO QR)
 # ==============================================================================
-# ==============================================================================
-# MÓDULO 5: DESCARGAR APP / PRESENTACIÓN (CÓDIGO QR)
-# ==============================================================================
 with tab_install:
     st.subheader("📲 Descargar APK para Android")
-    st.markdown("Escanea este código QR para descargar e instalar el archivo de la aplicación en tu celular Android:")
+    st.markdown("Escanea este código QR para descargar el instalador directo de la aplicación. **No requiere inicio de sesión.**")
     
-    # 1. Pega aquí tu enlace de descarga directa de Google Drive
-    apk_direct_download_url = "https://drive.google.com/uc?export=download&id=TU_ID_AQUI"
+    # 1. Enlace directo y puro desde tu propio repositorio de GitHub
+    apk_direct_download_url = "https://raw.githubusercontent.com/Renato0-glitch/nutrikids-mvp/main/NutriKids.apk"
     
-    # 2. Codificación segura de la URL para evitar roturas en la API del QR
+    # 2. Codificación segura de la URL para el QR
     import urllib.parse
     encoded_url = urllib.parse.quote_plus(apk_direct_download_url)
     qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data={encoded_url}"
@@ -288,15 +285,26 @@ with tab_install:
         f"""
         <div style="text-align: center; margin: 20px 0;">
             <img src="{qr_image_url}" width="230" style="border-radius: 12px; background: white; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" alt="Código QR Descarga">
-            <p style="margin-top: 10px; font-size: 14px;">Escanea para descargar NutriKids.apk</p>
+            <p style="margin-top: 10px; font-size: 14px;">Escanea para descargar automáticamente</p>
         </div>
         """,
         unsafe_allow_html=True
     )
     
-    st.markdown(f"<div style='text-align: center;'><a href='{apk_direct_download_url}' target='_blank'>👉 O toca aquí para descargar directamente</a></div>", unsafe_allow_html=True)
+    # Botón en HTML que fuerza la descarga sin pasar por bloqueos
+    st.markdown(
+        f"""
+        <div style='text-align: center;'>
+            <a href='{apk_direct_download_url}' target='_blank' style='background-color: #2ECC71; color: white; padding: 10px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;'>
+                📥 Descargar Instalador (.apk)
+            </a>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+    
     st.write("")
-    st.info("ℹ️ Al instalar, Android preguntará si deseas instalar aplicaciones de orígenes desconocidos; presiona **Permitir** o **Instalar de todas formas**.")
+    st.info("ℹ️ Al abrir el archivo descargado, Android preguntará si deseas instalar aplicaciones de orígenes desconocidos. Presiona **Permitir** o **Configuración > Confiar en esta fuente**.")
 
 # ==============================================================================
 # PANEL INFERIOR: RESULTADO DETALLADO DEL PRODUCTO ACTIVO
